@@ -55,4 +55,52 @@ class Mpetugas extends CI_Model {
         }
         return $query->row(); // Mengembalikan sebagai objek
     }
+    public function get_all_petugas() {
+        return $this->db->get('petugas')->result();
+    }
+
+    public function get_petugas_by_id($id) {
+        return $this->db->get_where('petugas', ['id' => $id])->row();
+    }
+
+    public function insert_petugas($data) {
+        return $this->db->insert('petugas', $data);
+    }
+
+    public function update_petugas($id, $data) {
+        $this->db->where('id', $id);
+        return $this->db->update('petugas', $data);
+    }
+
+    public function delete_petugas($id) {
+        return $this->db->delete('petugas', ['id' => $id]);
+    }
+    public function get_petugas($search = '', $limit = 10, $start = 0) {
+        $this->db->select('id, namapetugas, jabatan, alamat, nohp, foto, username, level, statususer');
+        $this->db->from('petugas');
+
+        // Jika ada pencarian
+        if (!empty($search)) {
+            $this->db->like('namapetugas', $search);
+            $this->db->or_like('jabatan', $search);
+            $this->db->or_like('username', $search);
+        }
+
+        $this->db->limit($limit, $start);
+        return $this->db->get()->result_array();
+    }
+
+    // Fungsi untuk menghitung total data petugas
+    public function count_petugas($search = '') {
+        $this->db->from('petugas');
+
+        if (!empty($search)) {
+            $this->db->like('namapetugas', $search);
+            $this->db->or_like('jabatan', $search);
+            $this->db->or_like('username', $search);
+        }
+
+        return $this->db->count_all_results();
+    }
+    
 }
