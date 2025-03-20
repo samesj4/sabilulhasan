@@ -45,7 +45,7 @@ class Mpetugas extends CI_Model {
         return $this->db->count_all_results('login_attempts') >= 5;
     }
     public function get_user_by_id($id) {
-        $this->db->select('id, namapetugas, jabatan, alamat, nohp, username, level, statususer');
+        $this->db->select('id, namapetugas, jabatan, alamat, nohp, username, level, statususer,foto');
         $this->db->from('petugas');
         $this->db->where('id', $id);
         $query = $this->db->get();
@@ -59,14 +59,18 @@ class Mpetugas extends CI_Model {
         return $this->db->get('petugas')->result();
     }
 
-    public function get_petugas_by_id($id) {
-        return $this->db->get_where('petugas', ['id' => $id])->row();
-    }
+   
 
-    public function insert_petugas($data) {
+    public function simpanPetugas($data) {
         return $this->db->insert('petugas', $data);
     }
 
+    // Ambil data petugas berdasarkan ID
+    public function get_petugas_by_id($id) {
+        return $this->db->get_where('petugas', ['id' => $id])->row_array();
+    }
+
+    // Update data petugas
     public function update_petugas($id, $data) {
         $this->db->where('id', $id);
         return $this->db->update('petugas', $data);
@@ -85,7 +89,7 @@ class Mpetugas extends CI_Model {
             $this->db->or_like('jabatan', $search);
             $this->db->or_like('username', $search);
         }
-
+        $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $start);
         return $this->db->get()->result_array();
     }

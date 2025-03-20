@@ -64,8 +64,8 @@ $route['admin_dashboard'] = 'Admin_dashboard/index';
 
 //Master Petugas
 $route['Petugas'] = 'Cpetugas/petugas';
-$route['tambah-petugas'] = 'Admin_dashboard/form_tambah_petugas';
-$route['edit-petugas'] = 'Admin_dashboard/form_edit_petugas';
+$route['tambah-petugas'] = 'Cpetugas/form_tambah_petugas';
+$route['edit-petugas'] = 'Cpetugas/form_edit_petugas';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -31,13 +31,14 @@
         </div>
     </div>
     <div class="row">
-    <div class="col-md-12" id="list_petugas">
+        <div class="col-md-12" id="list_petugas">
             <div class="card">
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap table-sm text-xsmall" style="font-size: 12px;">
                         <thead class="bg bg-info">
                             <tr>
                                 <th style="width: 10px">#</th>
+                                <th>Foto</th>
                                 <th>Nama Petugas</th>
                                 <th>Jabatan</th>
                                 <th>Alamat</th>
@@ -89,42 +90,44 @@
     </div>
 </div>
 <script>
-$(document).ready(function () {
-    function loadPetugas(page = 1) {
-        var baris = $('#baris').val();
-        var search_petugas_by = $('#search_petugas_by').val();
+function loadPetugas(page = 1) {
+    var baris = $('#baris').val();
+    var search_petugas_by = $('#search_petugas_by').val();
 
-        $.ajax({
-            url: "<?= site_url('Cpetugas/search_petugas') ?>",
-            type: "POST",
-            data: { page: page, baris: baris, search_petugas_by: search_petugas_by },
-            dataType: "json",
-            success: function (response) {
-                if (response.sukses === 'ya') {
-                    $('#data_list_petugas').html(response.list_petugas);
-                    $('#total_petugas').text(response.total_petugas);
+    $.ajax({
+        url: "<?= site_url('Cpetugas/search_petugas') ?>",
+        type: "POST",
+        data: { page: page, baris: baris, search_petugas_by: search_petugas_by },
+        dataType: "json",
+        success: function (response) {
+            if (response.sukses === 'ya') {
+                $('#data_list_petugas').html(response.list_petugas);
+                $('#total_petugas').text(response.total_petugas);
 
-                    var total_pages = Math.ceil(response.total_petugas / response.baris);
-                    var pagination_html = '';
+                var total_pages = Math.ceil(response.total_petugas / response.baris);
+                var pagination_html = '';
 
-                    for (var i = 1; i <= total_pages; i++) {
-                        var active = (i === response.current_page) ? 'active' : '';
-                        pagination_html += '<li class="page-item ' + active + '">';
-                        pagination_html += '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
-                    }
-
-                    $('.pagination').html(pagination_html);
-                } else {
-                    $('#dataPetugas').html('<tr><td colspan="8">Tidak ditemukan</td></tr>');
+                for (var i = 1; i <= total_pages; i++) {
+                    var active = (i === response.current_page) ? 'active' : '';
+                    pagination_html += '<li class="page-item ' + active + '">';
+                    pagination_html += '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
                 }
-            },
-            error: function (jqXHR, textStatus) {
-                alert("Error: " + textStatus);
-            }
-        });
-    }
 
-    loadPetugas(1);
+                $('.pagination').html(pagination_html);
+                cancel_petugas();
+            } else {
+                $('#dataPetugas').html('<tr><td colspan="8">Tidak ditemukan</td></tr>');
+                cancel_petugas();
+            }
+        },
+        error: function (jqXHR, textStatus) {
+            alert("Error: " + textStatus);
+        }
+    });
+}
+
+$(document).ready(function () {
+    loadPetugas(1);  // Fungsi ini sekarang bisa dipanggil di mana saja
 
     $('#search_petugas_by, #baris').on('input change', function () {
         loadPetugas(1);
@@ -138,4 +141,24 @@ $(document).ready(function () {
 
     $('#search_petugas_by').focus();
 });
+
+function form_tambah_petugas() {
+        $.post('tambah-petugas', function (Res) {
+            $('#list_petugas').removeClass('col-md-12');
+            $('#list_petugas').addClass('col-md-7');
+            $('#petugas_tambah_edit').html(Res);
+        });
+}
+function form_edit_petugas(id) {
+        $.post('edit-petugas', {id: id}, function (Res) {
+            $('#list_petugas').removeClass('col-md-12');
+            $('#list_petugas').addClass('col-md-7');
+            $('#petugas_tambah_edit').html(Res);
+        });
+}
+function cancel_petugas() {
+        $('#petugas_tambah_edit').html('');
+        $('#list_petugas').removeClass('col-md-7');
+        $('#list_petugas').addClass('col-md-12');
+}
 </script>
