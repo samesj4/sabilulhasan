@@ -124,6 +124,17 @@
                                     </p>
                                 </a>
                             </li>
+<<<<<<< HEAD
+=======
+                            <li class="nav-item">
+                                <a href="#" class="nav-link " onclick="berita()">
+                                    <i class="nav-icon fas fa-newspaper "></i>
+                                    <p>
+                                        Berita
+                                    </p>
+                                </a>
+                            </li>
+>>>>>>> ba995a9 (Menyelesaikan berita)
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link ">
                                     <i class="nav-icon fas fa-wrench"></i>
@@ -203,7 +214,11 @@
                                     <li class="nav-item">
                                         <a href="#" class="nav-link" onclick="settingkeuangan()">
                                             <i class="far fa-circle nav-icon text-primary"></i>
+<<<<<<< HEAD
                                             <p>Settomg</p>
+=======
+                                            <p>Setting</p>
+>>>>>>> ba995a9 (Menyelesaikan berita)
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -307,6 +322,17 @@
                                             remove_add_class();
                                         });
                                     }
+<<<<<<< HEAD
+=======
+
+                                    function berita() {
+                                        $.post('Berita', function (Res) {
+                                            $('.content').html(Res);
+                                            $('#nama_link').html('<a href="#" class="nav-link">Home / <small> Dashboard</small></a>');
+                                            remove_add_class();
+                                        });
+                                    }
+>>>>>>> ba995a9 (Menyelesaikan berita)
                                     function petugas() {
                                         $.post('Petugas', function (Res) {
                                             $('.content').html(Res);

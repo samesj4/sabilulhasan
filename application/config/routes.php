@@ -67,5 +67,16 @@ $route['Petugas'] = 'Cpetugas/petugas';
 $route['tambah-petugas'] = 'Cpetugas/form_tambah_petugas';
 $route['edit-petugas'] = 'Cpetugas/form_edit_petugas';
 
+$route['hapus-petugas'] = 'Cpetugas/form_edit_petugas_hapus';
+
+
+$route['Berita'] = 'Cberita/berita';
+$route['tambah-berita'] = 'Cberita/form_tambah_berita';
+$route['edit-berita'] = 'Cberita/form_edit_berita';
+$route['hapus-berita'] = 'Cberita/form_edit_berita_hapus';
+
+
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

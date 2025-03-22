@@ -49,7 +49,21 @@ class Cpetugas extends CI_Controller {
                     <td>
                         <img src="'.base_url('assets/image/petugas/'.$row['foto']).'" width="50" height="50" class="img-thumbnail">
                     </td>
+<<<<<<< HEAD
                     <td><button type="button" class="btn btn-xs btn-info" onclick=form_edit_petugas("' .$row['id']. '")><i class="nav-icon fas fa-edit"></i></button>  <button type="button" class="btn btn-xs btn-danger" onclick=form_hapus_petugas("' .$row['id']. '")><i class="nav-icon fas fa-trash"></i></button> ' . $row['namapetugas'] . '</td>
+=======
+                    <td>
+                    <button type="button" class="btn btn-xs btn-info" 
+                    onclick=form_edit_petugas("' .$row['id']. '")>
+                    <i class="nav-icon fas fa-edit"></i></button> 
+                     
+                    
+                    <button type="button" class="btn btn-xs btn-danger"
+                     onclick=form_hapus_petugas("' .$row['id']. '")>
+                     <i class="nav-icon fas fa-trash"></i></button> 
+                     
+                     ' . $row['namapetugas'] . '</td>
+>>>>>>> ba995a9 (Menyelesaikan berita)
                     <td>'.$row['jabatan'].'</td>
                     <td>'.$row['alamat'].'</td>
                     <td>'.$row['nohp'].'</td>
@@ -161,7 +175,20 @@ class Cpetugas extends CI_Controller {
         $data['petugas'] = $this->Mpetugas->get_petugas_by_id($id);
         $this->load->view('petugas/edit_petugas', $data);
     }
+
+
+    public function form_edit_petugas_hapus (){
+        $id = $this->input->post('id'); // Ambil ID dari AJAX
+        if (!$id) {
+            show_error('ID tidak ditemukan', 500);
+        }
+        $data = [
+            'statususer' => 'non-aktif',
+        ];
     
+        $this->Mpetugas->update_petugas($id, $data);
+
+    }
 
 
     // Simpan perubahan data petugas

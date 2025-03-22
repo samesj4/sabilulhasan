@@ -89,6 +89,8 @@ class Mpetugas extends CI_Model {
             $this->db->or_like('jabatan', $search);
             $this->db->or_like('username', $search);
         }
+        $this->db->where('statususer', 'aktif');
+
         $this->db->order_by('id', 'DESC');
         $this->db->limit($limit, $start);
         return $this->db->get()->result_array();
